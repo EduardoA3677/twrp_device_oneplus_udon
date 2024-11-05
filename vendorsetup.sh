@@ -69,10 +69,18 @@ fi
     export FOX_DELETE_AROMAFM=1
   
 # Display Settings
-    export OF_HIDE_NOTCH=1
-    export OF_CLOCK_POS=1
+
     export OF_ALLOW_DISABLE_NAVBAR=0
     export OF_USE_GREEN_LED=0
+
+    export OF_SCREEN_H=2412
+    export OF_STATUS_H=106
+    export OF_STATUS_INDENT_LEFT=48
+    export OF_STATUS_INDENT_RIGHT=48
+    export OF_HIDE_NOTCH=1
+    export OF_CLOCK_POS=1
+    export OF_OPTIONS_LIST_NUM=6
+    export OF_SPLASH_MAX_SIZE=16384
   
 # Partitions Handler
     export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/mapper/system"
