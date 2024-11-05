@@ -54,6 +54,6 @@ on property:twrp.modules.loaded=true
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
     start health-hal-2-1
-    stop vendor.qseecomd
-    start vendor.qseecomd
+    stop qseecom-service
+    start qseecom-service
     umount /firmware
