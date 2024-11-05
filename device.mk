@@ -25,6 +25,19 @@ PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-impl-qti.recovery \
     android.hardware.boot@1.2-service
 
+# fastbootd
+PRODUCT_PACKAGES += fastbootd
+
+# Add default implementation of fastboot HAL.
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.1-impl-mock \
+    android.hardware.fastboot@1.1-impl-mock.recovery
+
+# Health
+PRODUCT_PACKAGES += \
+    android.hardware.health@2.1-impl \
+    android.hardware.health@2.1-service
+
 # SHIPPING API
 PRODUCT_SHIPPING_API_LEVEL := 32
 
