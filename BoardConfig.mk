@@ -20,15 +20,14 @@ ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
 # Bootloader
-PRODUCT_PLATFORM := kalama
-TARGET_BOOTLOADER_BOARD_NAME := kalama
+PRODUCT_PLATFORM := taro
+TARGET_BOOTLOADER_BOARD_NAME := taro
 TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Platform
-TARGET_BOARD_PLATFORM := oneplus_sm8550
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno740
-QCOM_BOARD_PLATFORMS += oneplus_sm8550
+TARGET_BOARD_PLATFORM := oneplus_sm8475
+QCOM_BOARD_PLATFORMS += oneplus_sm8475
 
 # Kernel
 TARGET_KERNEL_ARCH            := arm64
@@ -52,12 +51,10 @@ AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
     boot \
     dtbo \
-    init_boot \
     odm \
     product \
     recovery \
     system \
-    system_dlkm \
     system_ext \
     vbmeta \
     vbmeta_system \
@@ -137,7 +134,6 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_MAX_BRIGHTNESS := 4047
 TW_EXTRA_LANGUAGES := true
-TW_DEFAULT_LANGUAGE := zh_CN
 TW_DEFAULT_BRIGHTNESS := 2000
 TW_EXCLUDE_APEX := true
 TW_HAS_EDL_MODE := true
@@ -150,4 +146,4 @@ TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko gpr_dlkm.ko q6_notifier_dlkm.ko q
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/class/thermal/thermal_zone28/temp"
 TW_BATTERY_SYSFS_WAIT_SECONDS := 6
 TW_BACKUP_EXCLUSIONS := /data/fonts
-TW_DEVICE_VERSION := OnePlus12R/Ace3
+TW_DEVICE_VERSION := OnePlus11R/Ace2

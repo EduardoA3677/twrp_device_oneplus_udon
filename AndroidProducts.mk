@@ -4,6 +4,6 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-PRODUCT_MAKEFILES := $(LOCAL_DIR)/twrp_aston.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/twrp_udon.mk
 
-COMMON_LUNCH_CHOICES := twrp_aston-eng
+COMMON_LUNCH_CHOICES := twrp_udon-eng
