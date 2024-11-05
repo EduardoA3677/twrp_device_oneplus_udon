@@ -21,7 +21,9 @@ $(call inherit-product, vendor/twrp/config/common.mk)
 
 PRODUCT_PACKAGES += \
     bootctrl.oneplus_sm8475.recovery \
-    android.hardware.boot@1.2-impl-qti.recovery
+    android.hardware.boot@1.2-impl-qti \
+    android.hardware.boot@1.2-impl-qti.recovery \
+    android.hardware.boot@1.2-service
 
 # SHIPPING API
 PRODUCT_SHIPPING_API_LEVEL := 32
