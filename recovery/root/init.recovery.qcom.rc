@@ -33,11 +33,6 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
-    chmod 0660 /dev/qseecom
-    chown system drmrpc /dev/qseecom
-    chmod 0664 /dev/ion
-    chown system system /dev/ion
-    install_keyring
 
 on init
     start boot-hal-1-2
@@ -54,6 +49,8 @@ on property:twrp.modules.loaded=true
     write /sys/kernel/boot_adsp/boot 1
     wait /sys/class/power_supply/battery
     start health-hal-2-1
-    stop vendor.qseecomd
-    start vendor.qseecomd
+    start vendor.qti.vibrator
     umount /firmware
+
+on property:twrp.all.users.decrypted=true
+    umount /mnt/vendor/persist
