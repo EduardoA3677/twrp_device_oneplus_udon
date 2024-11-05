@@ -1,7 +1,5 @@
 # Copyright (c) 2012-2015, 2017-2021, The Linux Foundation. All rights reserved.
 #
-# Copyright (c) 2022 Qualcomm Innovation Center, Inc. All rights reserved.
-#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
 #     * Redistributions of source code must retain the above copyright
@@ -26,13 +24,50 @@
 # OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
+#
+# Changes from Qualcomm Innovation Center are provided under the following license:
+# Copyright (c) 2022-2023 Qualcomm Innovation Center, Inc. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted (subject to the limitations in the
+# disclaimer below) provided that the following conditions are met:
+#
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#
+#     * Neither the name of Qualcomm Innovation Center, Inc. nor the names of
+#       its contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE
+# GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT
+# HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+# IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+# GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER
+# IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+#Import rc file
+import /vendor/etc/ueventd.qcom.userdebug.rc
+
 
 # Firmware directory Path
 # Below macro will be read by uevent and path will
 # be added to search path for firmware loading
-
 # ifndef OPLUS_FEATURE_WIFI_BDF
-# WuGuotian@CONNECTIVITY.WIFI.HARDWARE.BDF.1065227 , 2021/05/26,
+# fangzhijun@CONNECTIVITY.WIFI.HARDWARE.BDF.5719240 , 2023/06/13,
 # Modify for: multi projects using different bdf, adding persist into firmware_directories
 # firmware_directories /vendor/firmware_mnt/image/
 # else /* OPLUS_FEATURE_WIFI_BDF */
@@ -78,11 +113,17 @@ subsystem mem_buf_vm
 /dev/ipa_odl_ctl          0660   radio      radio
 /dev/ipa_adpl             0660   system     oem_2905
 /dev/synx_device          0660   root       camera
+/dev/ubwcp                0660   root       camera
 /dev/hab                  0666   system     system
 /dev/iio:device*          0664   system     system
+/dev/qmc_dma              0660   radio      radio
+/dev/qmc_cma              0660   radio      radio
 
 #permissions for UFS RPMB BSG device node
 /dev/0:0:0:49476          0600   system     system
+
+#permissions for GPT listener on LUN4
+/dev/0:0:0:4              0600   system     root
 
 #permissions for CSVT
 /dev/smd11                0660   radio      radio
@@ -92,6 +133,8 @@ subsystem mem_buf_vm
 /dev/smd3                 0660   bluetooth  bluetooth
 /dev/btpower              0660   bluetooth  system
 /dev/btfmslim             0660   bluetooth  system
+/dev/bt_cp_ctrl           0660   bluetooth  system
+/dev/btfmcodec_dev        0660   bluetooth  system
 
 #permissions for pta
 /dev/pta                  0660   system     system
@@ -158,6 +201,7 @@ subsystem mem_buf_vm
 /dev/qce                  0660   system     drmrpc
 /dev/smcinvoke            0660   system     drmrpc
 /dev/qsee_ipc_irq_spss    0660   system     drmrpc
+/dev/qti-smmu-proxy       0660   system     system
 /dev/seemplog             0660   system     system
 /dev/pft                  0660   system     drmrpc
 /dev/spcom                0660   system     system
@@ -196,8 +240,19 @@ subsystem mem_buf_vm
 #qvr
 /dev/qvr_external_sensor_ioctl      0660  system  system
 /sys/kernel/qvr_external_sensor/fd  0660  system  system
-/dev/bus/usb/*                      0660  root    usb
-/dev/hidraw*                        0660  system    system
+/dev/bus/usb/001/002      0660   system     system
+/dev/bus/usb/001/003      0660   system     system
+/dev/bus/usb/001/004      0660   system     system
+/dev/bus/usb/001/005      0660   system     system
+/dev/bus/usb/002/002      0660   system     system
+/dev/bus/usb/002/003      0660   system     system
+/dev/bus/usb/002/004      0660   system     system
+/dev/bus/usb/002/005      0660   system     system
+/dev/bus/usb/003/002      0660   system     system
+/dev/bus/usb/003/003      0660   system     system
+/dev/bus/usb/003/004      0660   system     system
+/dev/bus/usb/003/005      0660   system     system
+/dev/hidraw*              0660   system     system
 
 # wlan
 /dev/wcnss_wlan           0660   system     system
@@ -339,6 +394,10 @@ subsystem mem_buf_vm
 /dev/nfc-nci              0660    nfc         nfc
 /dev/nq-nci               0660    nfc         nfc
 /dev/assd                 0660    nfc         nfc
+/dev/st21nfc              0660    nfc         nfc
+
+# eSE permissions
+/dev/st54spi_gpio         0660   system     system
 
 # UIO devices
 /dev/uio0                 0660   system     system
@@ -366,6 +425,10 @@ subsystem mem_buf_vm
 /dev/hbtp_input           0660   system     system
 /dev/hbtp_vm              0660   system     system
 
+# LegacyTouch device
+/sys/kernel/qts/primary/trusted_touch*    0660   system     system
+/sys/kernel/qts/secondary/trusted_touch*  0660   system     system
+
 # Add device block for FRP
 /dev/block/platform/soc/7824900.sdhci/by-name/config    0600   system     system
 /dev/block/platform/soc/7464900.sdhci/by-name/frp       0600   system     system
@@ -376,8 +439,6 @@ subsystem mem_buf_vm
 /dev/block/platform/soc/7c4000.sdhci/by-name/frp        0600   system     system
 /dev/block/platform/soc/4744000.sdhci/by-name/frp       0600   system     system
 /dev/block/platform/soc/4804000.ufshc/by-name/frp       0600   system     system
-/dev/block/platform/soc/7c4000.sdhci/by-name/rawdump       0660   root     system
-/dev/block/platform/soc/1d84000.ufshc/by-name/rawdump       0660   root     system
 
 # This is temporary while using SD card for initial bring-up
 /dev/block/platform/soc/8804000.sdhci/by-name/frp       0600   system     system
@@ -385,53 +446,25 @@ subsystem mem_buf_vm
 # Kmsg device
 /dev/kmsg                                               0620   root       system
 
-# Huaiwei.Ding@BSP.Kernel.Stability, 2021/07/01, add for explorer project
-/dev/explorer_preisp                                    0660   cameraserver   camera
-
 # LED class devices
 /sys/class/leds/red      delay_on     0640    system    system
 /sys/class/leds/red      delay_off    0640    system    system
 /sys/class/leds/red      breath       0640    system    system
+/sys/class/leds/red      repeat       0640    system    system
+/sys/class/leds/red      hw_pattern   0640    system    system
 /sys/class/leds/red      trigger      0640    system    system
-/sys/class/leds/red      brightness   0664    system    system
-/sys/class/leds/red      tr1          0664    system    system
-/sys/class/leds/red      tf1          0664    system    system
-/sys/class/leds/red      toff         0664    system    system
-/sys/class/leds/red      ton          0664    system    system
-/sys/class/leds/red      support      0664    system    system
-
 /sys/class/leds/green    delay_on     0640    system    system
 /sys/class/leds/green    delay_off    0640    system    system
 /sys/class/leds/green    breath       0640    system    system
 /sys/class/leds/green    trigger      0640    system    system
-/sys/class/leds/green    brightness   0664    system    system
-/sys/class/leds/green    tr1          0664    system    system
-/sys/class/leds/green    tf1          0664    system    system
-/sys/class/leds/green    toff         0664    system    system
-/sys/class/leds/green    ton          0664    system    system
-/sys/class/leds/green    support      0664    system    system
-
+/sys/class/leds/green    repeat       0640    system    system
+/sys/class/leds/green    hw_pattern   0640    system    system
 /sys/class/leds/blue     delay_on     0640    system    system
 /sys/class/leds/blue     delay_off    0640    system    system
 /sys/class/leds/blue     breath       0640    system    system
 /sys/class/leds/blue     trigger      0640    system    system
-/sys/class/leds/blue     brightness   0664    system    system
-/sys/class/leds/blue     tr1          0664    system    system
-/sys/class/leds/blue     tf1          0664    system    system
-/sys/class/leds/blue     toff         0664    system    system
-/sys/class/leds/blue     ton          0664    system    system
-/sys/class/leds/blue     support      0664    system    system
-
-/sys/class/leds/white    delay_on     0640    system    system
-/sys/class/leds/white    delay_off    0640    system    system
-/sys/class/leds/white    breath       0640    system    system
-/sys/class/leds/white    trigger      0640    system    system
-/sys/class/leds/white    brightness   0664    system    system
-/sys/class/leds/white    tr1          0664    system    system
-/sys/class/leds/white    tf1          0664    system    system
-/sys/class/leds/white    toff         0664    system    system
-/sys/class/leds/white    ton          0664    system    system
-/sys/class/leds/white    support      0664    system    system
+/sys/class/leds/blue     repeat       0640    system    system
+/sys/class/leds/blue     hw_pattern   0640    system    system
 
 # NPU device
 /dev/msm_npu             0644   system     system
@@ -440,6 +473,27 @@ subsystem mem_buf_vm
 /sys/class/dual_role_usb/*	data_role	0660	system	system
 /sys/class/dual_role_usb/*	power_role	0660	system	system
 /sys/class/dual_role_usb/*	mode		0660	system	system
+
+/sys/class/typec/port0		data_role	0660	system	usb
+/sys/class/typec/port0		power_role	0660	system	usb
+/sys/class/typec/port0		port_type	0660	system	usb
+/sys/class/typec/port0-partner	accessory_mode	0440	system	usb
+
+# USB Dynamic Disable
+/sys/bus/platform/devices/a600000.ssusb	dynamic_disable	0220	root	usb
+
+# USB autosuspend/wakeup settings
+/sys/bus/usb/devices/*      power/autosuspend          0660  system  usb
+/sys/bus/usb/devices/*      power/autosuspend_delay_ms 0660  system  usb
+/sys/bus/usb/devices/*      power/control              0660  system  usb
+/sys/bus/usb/devices/*      power/wakeup               0660  system  usb
+
+#USB root hub authorize setting
+/sys/bus/usb/devices/usb*   authorized                 0660  system  usb
+
+#USB mode setting
+/sys/bus/platform/devices/a600000.ssusb    mode        0660  system  usb
+/sys/bus/platform/devices/4e00000.ssusb    mode        0660  system  usb
 
 #Memory Offline
 /sys/devices/system/memory/memory* state    0660 system system
@@ -545,3 +599,12 @@ subsystem mem_buf_vm
 
 # devcoredump data attributes
 /sys/class/devcoredump/devcd*                           data                            0600    system  system
+
+#Virtualization Attributes
+/dev/gunyah                 0666   root     root
+
+# Tango 32-bit kernel support
+/dev/tango32                0666   system     system
+
+# Q2SPI UWB device
+/dev/q2spiuwb    0660    uwb    uwb

@@ -1,12 +1,13 @@
-# Copyright (c) 2021 Qualcomm Technologies, Inc.
+# Copyright (c) 2019 Qualcomm Technologies, Inc.
 # All Rights Reserved.
 # Confidential and Proprietary - Qualcomm Technologies, Inc.
 
-on init
-    start vendor.keymint-qti
+on boot
+    start vendor.qseecomd
 
-service vendor.keymint-qti /vendor/bin/hw/android.hardware.security.keymint-service-qti
-    class early_hal
+service vendor.qseecomd /vendor/bin/qseecomd
+    socket notify-topology stream 660 system drmrpc
+    class core
     user root
     group root drmrpc
     setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/system/lib64:/sbin

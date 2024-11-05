@@ -33,32 +33,10 @@ PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.1-impl-mock \
     android.hardware.fastboot@1.1-impl-mock.recovery
 
-# Keymaster 
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@4.1.vendor \
-    libkeymaster_messages.vendor
-
-PRODUCT_PACKAGES += \
-    android.system.keystore2
-
 # Health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl-qti \
+    android.hardware.health@2.1-impl \
     android.hardware.health@2.1-service
-
-# F2FS utilities
-PRODUCT_PACKAGES += \
-    sg_write_buffer \
-    f2fs_io \
-    check_f2fs
-
-# Fuse Passthrough
-PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
-
-# QCOM Decryption
-PRODUCT_PACKAGES += \
-    qcom_decrypt \
-    qcom_decrypt_fbe
 
 # SHIPPING API
 PRODUCT_SHIPPING_API_LEVEL := 32
