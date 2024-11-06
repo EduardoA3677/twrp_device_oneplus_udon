@@ -1,10 +1,14 @@
+# Android fstab file.
+# The filesystem that contains the filesystem checker binary (typically /system) cannot
+# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+
 # mount point   fstype  device                                          device2             flags
 # Logical partitions
 /system_ext     ext4    system_ext                                                          flags=display=System_EXT
 /vendor_dlkm    ext4    vendor_dlkm                                                         flags=display=Vendor_DLKM
 
 # Userdata/Metadata partitions
-/metadata       ext4    /dev/block/by-name/metadata                                         flags=display=Metadata
+/metadata       ext4    /dev/block/bootdevice/by-name/metadata                              flags=display=Metadata
 /data           f2fs    /dev/block/bootdevice/by-name/userdata                              flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized+wrappedkey_v0,keydirectory=/metadata/vold/metadata_encryption,metadata_encryption=aes-256-xts:wrappedkey_v0
 
 # Other partitions
@@ -35,5 +39,3 @@
 
 # Removable storage
 /usbstorage     vfat    /dev/block/sdg1                                 /dev/block/sdg      flags=fsflags=utf8;display="USB Storage";storage;wipeingui;removable
-/metadata       ext4    /dev/block/by-name/metadata                                         flags=display="Metadata"
-/storage	ext4    /data/media/0							    flags=display="Internal Storage";backup;removable;usermrf;fsflags="bind,utf8"
