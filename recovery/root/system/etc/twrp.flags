@@ -35,3 +35,5 @@
 
 # Removable storage
 /usbstorage     vfat    /dev/block/sdg1                                 /dev/block/sdg      flags=fsflags=utf8;display="USB Storage";storage;wipeingui;removable
+/metadata       ext4    /dev/block/by-name/metadata                                         flags=display="Metadata"
+/storage	ext4    /data/media/0							    flags=display="Internal Storage";backup;removable;usermrf;fsflags="bind,utf8"
