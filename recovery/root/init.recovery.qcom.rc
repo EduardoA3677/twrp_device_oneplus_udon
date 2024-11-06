@@ -39,6 +39,12 @@ on fs
     symlink /dev/block/platform/soc/${ro.boot.bootdevice}/by-name/ocdt /dev/block/bootdevice/by-name/ocdt
     symlink /dev/block/platform/soc/${ro.boot.bootdevice}/by-name/persist /dev/block/bootdevice/by-name/persist
     
+on property:hwservicemanager.ready=true
+    setprop ro.separate.soft ${ro.boot.prjname}
+
+on property:twrp.decrypt.done=true
+    setprop ro.separate.soft ${ro.boot.prjname}
+    
 on init
     start boot-hal-1-2
     setprop sys.usb.configfs 1
