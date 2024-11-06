@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2013,2016,2020 The Linux Foundation. All rights reserved.
  *
@@ -32,7 +33,6 @@
 /******************************************************************************
  * INCLUDE SECTION
  ******************************************************************************/
-#include <stdio.h>
 #include <fcntl.h>
 #include <string.h>
 #include <errno.h>
@@ -43,7 +43,6 @@
 #include <limits.h>
 #include <dirent.h>
 #include <linux/kernel.h>
-#include <asm/byteorder.h>
 #include <map>
 #include <vector>
 #include <string>
@@ -159,18 +158,11 @@ static int blk_rw(int fd, int rw, int64_t offset, uint8_t *buf, unsigned len)
     else
         r = read(fd, buf, len);
 
-    if (r < 0) {
+    if (r < 0)
         fprintf(stderr, "block dev %s failed: %s\n", rw ? "write" : "read",
                 strerror(errno));
-    } else {
-        if (rw) {
-            r = fsync(fd);
-            if (r < 0)
-                fprintf(stderr, "fsync failed: %s\n", strerror(errno));
-        } else {
-            r = 0;
-        }
-    }
+    else
+        r = 0;
 
     return r;
 }
