@@ -28,9 +28,6 @@
 on fs
     mkdir /dev/block/bootdevice/ 0770 shell system
     mkdir /dev/block/bootdevice/by-name/ 0770 shell system
-    wait /dev/block/platform/soc/${ro.boot.bootdevice}
-    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
-    write /proc/sys/kernel/firmware_config/force_sysfs_fallback 1
     symlink /dev/block/platform/soc/${ro.boot.bootdevice}/by-name/boot_a /dev/block/bootdevice/by-name/boot_a
     symlink /dev/block/platform/soc/${ro.boot.bootdevice}/by-name/boot_b /dev/block/bootdevice/by-name/boot_b
     symlink /dev/block/platform/soc/${ro.boot.bootdevice}/by-name/system /dev/block/bootdevice/by-name/system
@@ -44,7 +41,7 @@ on property:hwservicemanager.ready=true
 
 on property:twrp.decrypt.done=true
     setprop ro.separate.soft ${ro.boot.prjname}
-    
+
 on init
     start boot-hal-1-2
     setprop sys.usb.configfs 1
