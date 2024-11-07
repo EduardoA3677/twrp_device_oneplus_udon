@@ -98,9 +98,6 @@ PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.1-impl-mock.recovery \
     fastbootd
 
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.vibrator.service
-
 # qcom decryption
 PRODUCT_PACKAGES += \
     qcom_decrypt \
