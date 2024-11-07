@@ -81,23 +81,17 @@ fi
     export OF_CLOCK_POS=1
     export OF_OPTIONS_LIST_NUM=6
     export OF_SPLASH_MAX_SIZE=16384
-  
-# Partitions Handler
-    export FOX_RECOVERY_SYSTEM_PARTITION="/dev/block/mapper/system"
-    export FOX_RECOVERY_VENDOR_PARTITION="/dev/block/mapper/vendor"
-  
+
 # A/B-Related
     export OF_AB_DEVICE_WITH_RECOVERY_PARTITION=1
     export FOX_VIRTUAL_AB_DEVICE=1
     export OF_VANILLA_BUILD=0
   
 # Other Patches
-    export OF_NO_RELOAD_AFTER_DECRYPTION=1
+
     export OF_FBE_METADATA_MOUNT_IGNORE=1
-    export OF_PATCH_AVB20=1
+
     export OF_NO_SPLASH_CHANGE=1
-    export OF_FIX_DECRYPTION_ON_DATA_MEDIA=1
-    export FOX_BUGGED_AOSP_ARB_WORKAROUND="1616300800"; # Sun 21 Mar 04:26:40 GMT 2021
 
 	lunch twrp_$FDEVICE-eng
 	# let's see what are our build VARs
